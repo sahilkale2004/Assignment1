@@ -1,0 +1,194 @@
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1e40af;
+  --danger: #dc2626;
+  --success: #16a34a;
+  --warning: #f59e0b;
+  --bg: #f1f5f9;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", Arial, sans-serif;
+  background: linear-gradient(135deg, #e0e7ff, #f8fafc);
+  min-height: 100vh;
+}
+
+/* =====================
+   AUTH FORMS
+===================== */
+form {
+  width: 360px;
+  margin: 80px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.6s ease;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #1e293b;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 14px;
+  border-radius: 8px;
+  border: 1px solid #cbd5f5;
+  font-size: 14px;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background: var(--primary);
+  color: white;
+  font-size: 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+}
+
+button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+/* =====================
+   DASHBOARD (USER + ADMIN)
+===================== */
+.dashboard {
+  width: 90%;
+  max-width: 900px;
+  margin: 80px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.12);
+  animation: slideUp 0.6s ease;
+}
+
+.dashboard h2 {
+  margin-bottom: 10px;
+}
+
+.dashboard p {
+  font-size: 15px;
+  margin: 10px 0;
+  color: #334155;
+}
+
+/* =====================
+   AI SECURITY BADGE
+===================== */
+.ai-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.ai-low {
+  background: #dcfce7;
+  color: var(--success);
+}
+
+.ai-medium {
+  background: #fef3c7;
+  color: var(--warning);
+}
+
+.ai-high {
+  background: #fee2e2;
+  color: var(--danger);
+}
+
+/* =====================
+   ADMIN USER GRID
+===================== */
+.card-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+  margin-top: 25px;
+}
+
+.card {
+  background: #f8fafc;
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+  animation: fadeIn 0.5s ease;
+}
+
+.card p {
+  margin: 6px 0;
+  font-size: 14px;
+}
+
+/* =====================
+   BUTTON VARIANTS
+===================== */
+.logout {
+  background: var(--danger);
+  margin-top: 20px;
+}
+
+.logout:hover {
+  background: #b91c1c;
+}
+
+.admin-btn {
+  margin-top: 12px;
+  background: #0f172a;
+}
+
+.admin-btn:hover {
+  background: #020617;
+}
+
+/* =====================
+   ANIMATIONS
+===================== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
