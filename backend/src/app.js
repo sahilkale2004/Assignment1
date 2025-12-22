@@ -14,11 +14,9 @@ const app = express();
  */
 app.use(
   cors({
-    origin: [
-      "https://assignment1-1ebi752qp-sahils-projects-a3262913.vercel.app",
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
