@@ -21,16 +21,20 @@ export default function Login() {
 
   return (
     <motion.form
+      className="auth-card"
       onSubmit={handleLogin}
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      initial={{ opacity: 0, scale: 0.95, y: 40 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
     >
-      <h2>Welcome Back</h2>
+      <h2>Secure Identity Vault</h2>
+      <p style={{ textAlign: "center", color: "#64748b", marginBottom: "20px" }}>
+        Login to access your encrypted profile
+      </p>
 
       <input
         type="email"
-        placeholder="Email"
+        placeholder="Email address"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required
@@ -46,9 +50,27 @@ export default function Login() {
 
       <button type="submit">Login</button>
 
-      <p style={{ textAlign: "center", marginTop: "12px" }}>
+      <p style={{ textAlign: "center", marginTop: "14px", fontSize: "14px" }}>
         New user? <Link to="/register">Create an account</Link>
       </p>
+
+      {/* Admin hint box */}
+      <div
+        style={{
+          marginTop: "18px",
+          padding: "12px",
+          background: "#f1f5f9",
+          borderRadius: "8px",
+          fontSize: "13px",
+          color: "#334155",
+        }}
+      >
+        <strong>Admin Demo:</strong>
+        <br />
+        Email: <code>secondcount18@outlook.com</code>
+        <br />
+        Password: <code>123456</code>
+      </div>
     </motion.form>
   );
 }
