@@ -65,13 +65,15 @@ http://localhost:5173
 
 🔗 API Documentation
 🔐 Authentication APIs
-Method	Endpoint	Description
-POST	/api/register	Register new user
-POST	/api/login	Login and receive JWT
-GET	/api/profile	Fetch authenticated user profile
+
+Method   	Endpoint	       Description
+POST	    /api/register	   Register new user
+POST	    /api/login	     Login and receive JWT
+GET	      /api/profile	   Fetch authenticated user profile
+
 👑 Admin APIs
-Method	Endpoint	Description
-GET	/api/admin/users	View all users (Admin only)
+Method	    Endpoint	        Description
+GET	        /api/admin/users	View all users (Admin only)
 
 🔒 Protected Routes
 
@@ -82,15 +84,15 @@ Authorization: Bearer <token>
 🗄 Database Schema (MongoDB)
 🧾 User Collection
 {
-  fullName: String,
-  email: String (unique),
-  passwordHash: String,
-  aadhaarEncrypted: String,
-  role: "user" | "admin",
-  aiRiskLevel: String,
-  aiScore: Number,
-  createdAt: Date,
-  updatedAt: Date
+    fullName: String,
+    email: String (unique),
+    passwordHash: String,
+    aadhaarEncrypted: String,
+    role: "user" | "admin",
+    aiRiskLevel: String,
+    aiScore: Number,
+    createdAt: Date,
+    updatedAt: Date
 }
 
 🔐 Security Notes
@@ -102,6 +104,7 @@ Aadhaar numbers are stored using AES-256 encryption
 Decryption occurs only when returning authenticated profile data
 
 🤖 AI Tool Usage Log (MANDATORY)
+
 Task	AI Tool Usage
 JWT token validation middleware	AI-assisted generation
 AES-256 encryption/decryption utility	AI-assisted logic design
@@ -109,7 +112,8 @@ Aadhaar risk analysis logic	AI-assisted rule generation
 MongoDB schema design	AI-assisted modeling
 Role-based access control	AI-assisted design
 Debugging authentication issues	AI-assisted troubleshooting
-README structure & documentation	AI-assisted content generation
+
+
 📊 Effectiveness Score
 
 AI Effectiveness Score: 4 / 5 ⭐⭐⭐⭐☆
@@ -138,6 +142,5 @@ Manual effort was still required for database permissions and deployment configu
 
 ✔ AI-assisted validation & tooling
 
-🏁 Conclusion
 
-This project successfully demonstrates a secure identity management system with strong emphasis on data security, access control, and AI-assisted validation, fully satisfying Assignment 1 requirements.
+
