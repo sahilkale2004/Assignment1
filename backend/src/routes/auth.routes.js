@@ -54,14 +54,16 @@ router.post("/register", async (req, res) => {
     // Encrypt Aadhaar
     const encryptedAadhaar = encrypt(aadhaar);
 
-    // 🔑 Default role is USER
+    // 🔑 Default role
     const role = "user";
 
     // Insert user WITH role
     await pool.query(
-      `INSERT INTO users 
-        (full_name, email, password_hash, aadhaar_encrypted, role)
-       VALUES ($1, $2, $3, $4, $5)`,
+      `
+      INSERT INTO users 
+      (full_name, email, password_hash, aadhaar_encrypted, role)
+      VALUES ($1, $2, $3, $4, $5)
+      `,
       [fullName, email, passwordHash, encryptedAadhaar, role]
     );
 
@@ -100,11 +102,11 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    // 🔐 JWT now INCLUDES ROLE
+    // 🔐 JWT WITH ROLE (CRITICAL FIX)
     const token = jwt.sign(
       {
         userId: user.id,
-        role: user.role, // 🔑 THIS IS CRITICAL
+        role: user.role,
       },
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
@@ -125,7 +127,11 @@ router.post("/login", async (req, res) => {
 router.get("/profile", authMiddleware, async (req, res) => {
   try {
     const userResult = await pool.query(
-      "SELECT full_name, email, aadhaar_encrypted, role FROM users WHERE id = $1",
+      `
+      SELECT full_name, email, aadhaar_encrypted, role 
+      FROM users 
+      WHERE id = $1
+      `,
       [req.user.userId]
     );
 
