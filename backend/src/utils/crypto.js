@@ -5,16 +5,12 @@ const iv = Buffer.from(process.env.AES_IV, "hex");
 
 function encrypt(text) {
   const cipher = crypto.createCipheriv("aes-256-cbc", key, iv);
-  let encrypted = cipher.update(text, "utf8", "hex");
-  encrypted += cipher.final("hex");
-  return encrypted;
+  return cipher.update(text, "utf8", "hex") + cipher.final("hex");
 }
 
 function decrypt(encrypted) {
   const decipher = crypto.createDecipheriv("aes-256-cbc", key, iv);
-  let decrypted = decipher.update(encrypted, "hex", "utf8");
-  decrypted += decipher.final("utf8");
-  return decrypted;
+  return decipher.update(encrypted, "hex", "utf8") + decipher.final("utf8");
 }
 
 module.exports = { encrypt, decrypt };

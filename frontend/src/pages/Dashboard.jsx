@@ -50,13 +50,15 @@ export default function Dashboard() {
         {profile.aiMessage}
       </p>
 
+      {profile.role === "admin" && (
+        <button onClick={() => navigate("/admin")}>
+          👑 Go to Admin Dashboard
+        </button>
+      )}
+
       <button className="logout" onClick={handleLogout}>
         Logout
       </button>
-      <button onClick={() => navigate("/admin")}>
-       Go to Admin Dashboard
-      </button>
-
     </motion.div>
   );
 }

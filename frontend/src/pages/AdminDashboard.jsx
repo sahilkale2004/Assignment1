@@ -23,11 +23,14 @@ export default function AdminDashboard() {
 
       <div className="card-list">
         {users.map((user) => (
-          <div className="card" key={user.id}>
-            <p><b>Name:</b> {user.full_name}</p>
+          <div className="card" key={user._id}>
+            <p><b>Name:</b> {user.fullName}</p>
             <p><b>Email:</b> {user.email}</p>
-            <p><b>Role:</b> {user.role || "user"}</p>
-            <p><b>Joined:</b> {new Date(user.created_at).toLocaleDateString()}</p>
+            <p><b>Role:</b> {user.role}</p>
+            <p>
+              <b>Joined:</b>{" "}
+              {new Date(user.createdAt).toLocaleDateString()}
+            </p>
           </div>
         ))}
       </div>

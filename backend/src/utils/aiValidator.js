@@ -9,7 +9,7 @@ function analyzeAadhaar(aadhaar) {
 
   if (/(\d)\1{5,}/.test(aadhaar)) {
     score += 30;
-    issues.push("Repeated digit pattern detected");
+    issues.push("Repeated digits detected");
   }
 
   if (aadhaar.startsWith("0")) {
@@ -18,9 +18,8 @@ function analyzeAadhaar(aadhaar) {
   }
 
   return {
-    riskScore: score,
-    riskLevel:
-      score < 30 ? "LOW" : score < 60 ? "MEDIUM" : "HIGH",
+    score,
+    riskLevel: score < 30 ? "LOW" : score < 60 ? "MEDIUM" : "HIGH",
     issues,
   };
 }
