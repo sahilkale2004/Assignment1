@@ -9,7 +9,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     api
-      .get("/profile")
+      .get("/auth/profile")
       .then((res) => setProfile(res.data))
       .catch(() => {
         localStorage.removeItem("token");
@@ -31,24 +31,31 @@ export default function Dashboard() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
     >
-      <h2>Dashboard</h2>
+      <h2>User Dashboard</h2>
 
       <p><b>Name:</b> {profile.fullName}</p>
       <p><b>Email:</b> {profile.email}</p>
-      <p><b>Aadhaar:</b> {profile.aadhaar}</p>
+      <p><b>Role:</b> {profile.role}</p>
 
       <hr />
 
       <p>
-        <b>AI Security Status:</b>{" "}
-        <span style={{ color: "green" }}>
-          {profile.aiSecurityStatus}
+        <b>AI Risk Level:</b>{" "}
+        <span
+          style={{
+            color:
+              profile.aiRiskLevel === "LOW"
+                ? "green"
+                : profile.aiRiskLevel === "MEDIUM"
+                ? "orange"
+                : "red",
+          }}
+        >
+          {profile.aiRiskLevel}
         </span>
       </p>
 
-      <p style={{ fontSize: "14px", color: "#475569" }}>
-        {profile.aiMessage}
-      </p>
+      <p><b>AI Risk Score:</b> {profile.aiScore}</p>
 
       {profile.role === "admin" && (
         <button onClick={() => navigate("/admin")}>
@@ -56,9 +63,7 @@ export default function Dashboard() {
         </button>
       )}
 
-      <button className="logout" onClick={handleLogout}>
-        Logout
-      </button>
+      <button onClick={handleLogout}>Logout</button>
     </motion.div>
   );
 }

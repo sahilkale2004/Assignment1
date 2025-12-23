@@ -19,21 +19,18 @@ export default function AdminDashboard() {
   return (
     <div className="dashboard">
       <h2>👑 Admin Dashboard</h2>
-      <p>System Users Overview</p>
 
-      <div className="card-list">
-        {users.map((user) => (
-          <div className="card" key={user._id}>
-            <p><b>Name:</b> {user.fullName}</p>
-            <p><b>Email:</b> {user.email}</p>
-            <p><b>Role:</b> {user.role}</p>
-            <p>
-              <b>Joined:</b>{" "}
-              {new Date(user.createdAt).toLocaleDateString()}
-            </p>
-          </div>
-        ))}
-      </div>
+      {users.map((user) => (
+        <div key={user._id} className="card">
+          <p><b>Name:</b> {user.fullName}</p>
+          <p><b>Email:</b> {user.email}</p>
+          <p><b>Role:</b> {user.role}</p>
+          <p>
+            <b>Joined:</b>{" "}
+            {new Date(user.createdAt).toLocaleDateString()}
+          </p>
+        </div>
+      ))}
     </div>
   );
 }

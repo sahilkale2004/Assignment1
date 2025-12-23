@@ -19,7 +19,7 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.post("/register", form);
+      await api.post("/auth/register", form);
       alert("Registration successful");
       navigate("/");
     } catch (err) {
@@ -72,7 +72,7 @@ export default function Register() {
 
       <button type="submit">Register</button>
 
-      <p style={{ textAlign: "center", marginTop: "12px" }}>
+      <p>
         Already have an account? <Link to="/">Login</Link>
       </p>
     </motion.form>
