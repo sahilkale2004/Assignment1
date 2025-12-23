@@ -42,17 +42,11 @@ An **Admin Dashboard** is included to demonstrate role-based authorization, allo
 cd backend
 npm install
 
-### env
-MONGO_URI=mongodb+srv://<username>:<password>@<cluster-url>/identity_vault
-JWT_SECRET=supersecretjwtkey
-AES_KEY=<64-hex-character-key>
-AES_IV=<32-hex-character-iv>
+
 
 Run backend =node src/app.js
 
-###  Backend Setup 
-cd frontend
-npm install
+
 
 ###  env frontend
 VITE_API_BASE_URL=http://localhost:5000/api
@@ -121,3 +115,4 @@ Strategic use of AI for productivity, debugging, and documentation
 🏁 Conclusion
 
 This project demonstrates a secure, scalable, and industry-aligned identity management system, integrating modern backend security practices, frontend best practices, and responsible AI-assisted development.
+
