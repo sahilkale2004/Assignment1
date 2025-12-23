@@ -1,6 +1,6 @@
 function analyzeAadhaar(aadhaar) {
   let score = 0;
-  let issues = [];
+  const issues = [];
 
   if (!/^\d{12}$/.test(aadhaar)) {
     score += 40;

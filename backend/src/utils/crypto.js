@@ -1,5 +1,9 @@
 const crypto = require("crypto");
 
+if (!process.env.AES_KEY || !process.env.AES_IV) {
+  throw new Error("AES_KEY or AES_IV missing");
+}
+
 const key = Buffer.from(process.env.AES_KEY, "hex");
 const iv = Buffer.from(process.env.AES_IV, "hex");
 

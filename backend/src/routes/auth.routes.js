@@ -1,13 +1,12 @@
-console.log("✅ auth.routes.js loaded");
-
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const User = require("../models/User");
 const authMiddleware = require("../middleware/auth");
-const { encrypt, decrypt } = require("../utils/crypto");
+const { encrypt } = require("../utils/crypto");
 const { analyzeAadhaar } = require("../utils/aiValidator");
+const { analyzePassword } = require("../utils/passwordAI");
 
 const router = express.Router();
 
@@ -22,13 +21,23 @@ router.post("/register", async (req, res) => {
       return res.status(400).json({ message: "All fields required" });
     }
 
-    const ai = analyzeAadhaar(aadhaar);
-    if (ai.riskLevel === "HIGH") {
-      return res.status(400).json({ message: "High risk Aadhaar", ai });
+    const pwdAI = analyzePassword(password);
+    if (pwdAI.strength === "Weak") {
+      return res.status(400).json({
+        message: "Weak password",
+        passwordAI: pwdAI,
+      });
     }
 
-    const existing = await User.findOne({ email });
-    if (existing) {
+    const aadhaarAI = analyzeAadhaar(aadhaar);
+    if (aadhaarAI.riskLevel === "HIGH") {
+      return res.status(400).json({
+        message: "High risk Aadhaar",
+        aadhaarAI,
+      });
+    }
+
+    if (await User.findOne({ email })) {
       return res.status(409).json({ message: "User already exists" });
     }
 
@@ -39,15 +48,17 @@ router.post("/register", async (req, res) => {
       email,
       passwordHash,
       aadhaarEncrypted: encrypt(aadhaar),
-      aiRiskLevel: ai.riskLevel,
-      aiScore: ai.score,
-      role: "user",
+      aiRiskLevel: aadhaarAI.riskLevel,
+      aiScore: aadhaarAI.score,
     });
 
-    res.status(201).json({ message: "User registered", userId: user._id });
+    res.status(201).json({
+      message: "User registered",
+      userId: user._id,
+    });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: err.message });
+    console.error("REGISTER ERROR:", err);
+    res.status(500).json({ message: "Server error" });
   }
 });
 
@@ -55,35 +66,39 @@ router.post("/register", async (req, res) => {
  * LOGIN
  */
 router.post("/login", async (req, res) => {
-  const { email, password } = req.body;
+  try {
+    const { email, password } = req.body;
 
-  const user = await User.findOne({ email });
-  if (!user) return res.status(401).json({ message: "Invalid credentials" });
+    const user = await User.findOne({ email });
+    if (!user) return res.status(401).json({ message: "Invalid credentials" });
 
-  const match = await bcrypt.compare(password, user.passwordHash);
-  if (!match) return res.status(401).json({ message: "Invalid credentials" });
+    const match = await bcrypt.compare(password, user.passwordHash);
+    if (!match) return res.status(401).json({ message: "Invalid credentials" });
 
-  const token = jwt.sign(
-    { userId: user._id, role: user.role },
-    process.env.JWT_SECRET,
-    { expiresIn: "1h" }
-  );
+    const token = jwt.sign(
+      { userId: user._id, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
 
-  res.json({ token });
+    res.json({ token });
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
+  }
 });
 
 /**
- * PROFILE
+ * PROFILE (NO Aadhaar leakage)
  */
 router.get("/profile", authMiddleware, async (req, res) => {
-  const user = await User.findById(req.user.userId);
+  const user = await User.findById(req.user.userId).select("-passwordHash");
+
   if (!user) return res.status(404).json({ message: "User not found" });
 
   res.json({
     fullName: user.fullName,
     email: user.email,
     role: user.role,
-    aadhaar: decrypt(user.aadhaarEncrypted),
     aiRiskLevel: user.aiRiskLevel,
     aiScore: user.aiScore,
   });
