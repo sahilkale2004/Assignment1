@@ -48,19 +48,19 @@ Run backend =node src/app.js
 
 ###  env Backend
 
-# MongoDB connection string (replace <username>, <password>, and <cluster-url>)
+MongoDB connection string (replace <username>, <password>, and <cluster-url>)
 MONGO_URI=mongodb+srv://<username>:<password>@<cluster-url>/<database>?retryWrites=true&w=majority
 
-# Database name
+Database name
 DB_NAME=identity_vault
 
-# JWT secret key (use a strong random string in production)
+JWT secret key (use a strong random string in production)
 JWT_SECRET=<your_jwt_secret>
 
-# AES encryption key (must be 64 hex characters for 256-bit key)
+AES encryption key (must be 64 hex characters for 256-bit key)
 AES_KEY=<your_64_char_hex_key>
 
-# AES initialization vector (must be 32 hex characters for 128-bit IV)
+AES initialization vector (must be 32 hex characters for 128-bit IV)
 AES_IV=<your_32_char_hex_iv>
 
 
@@ -131,5 +131,6 @@ Strategic use of AI for productivity, debugging, and documentation
 🏁 Conclusion
 
 This project demonstrates a secure, scalable, and industry-aligned identity management system, integrating modern backend security practices, frontend best practices, and responsible AI-assisted development.
+
 
 
